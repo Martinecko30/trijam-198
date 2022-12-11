@@ -21,14 +21,20 @@ public class StonePickup : MonoBehaviour
     {
         if (!manager.Stone)
         {
-            manager.Stone = true;
             manager.Wood = false;
             manager.ChangeCursor(manager.stoneCursor);
+            StartCoroutine(GetTheStoneCoroutine());
         }
         else
         {
             manager.Stone = false;
             manager.ChangeCursor(manager.defaultCursor);
         }
+    }
+
+    private IEnumerator GetTheStoneCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        manager.Stone = true;
     }
 }

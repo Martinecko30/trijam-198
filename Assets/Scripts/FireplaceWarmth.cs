@@ -20,6 +20,11 @@ public class FireplaceWarmth : MonoBehaviour
         fireIntensity -= 2.5f * (Time.deltaTime * loseSpeed);
         fireIntensity = Mathf.Clamp(fireIntensity, 0, 100);
         transform.localScale = new(fireIntensity * .003f, fireIntensity * .003f, 0f);
+
+        if(fireIntensity <= 0)
+        {
+            manager.Death();
+        }
     }
 
     private void OnMouseDown()
@@ -40,7 +45,7 @@ public class FireplaceWarmth : MonoBehaviour
 
     private void OnMouseOver()
     {
-        manager.Warmth += 6.5f * (Time.deltaTime * manager.loseSpeed);
+        manager.Warmth += 7.5f * (Time.deltaTime * manager.loseSpeed);
     }
     private void OnMouseExit()
     {
