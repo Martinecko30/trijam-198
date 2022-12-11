@@ -18,13 +18,21 @@ public class GameManager : MonoBehaviour
     [Header("Cursors")]
     public Texture2D defaultCursor;
     // Keep separated so unity won't break with headers
-    public Texture2D fireCursor, stoneCursor;
+    public Texture2D fireCursor, stoneCursor, woodCursor;
+
+    [Header("Holding")]
+    public bool Stone = false;
+    public bool Wood = false;
 
     public static GameManager Instance;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
         DontDestroyOnLoad(gameObject);
 
         timeText.text = time + "am";

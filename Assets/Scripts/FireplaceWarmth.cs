@@ -4,30 +4,46 @@ using UnityEngine;
 
 public class FireplaceWarmth : MonoBehaviour
 {
-    public GameManager manager;
-    public Texture2D warmhands;
-    public Texture2D emptyhands;
-    // Start is called before the first frame update
+    private GameManager manager;
+
+    private float fireIntensity = 100;
+    private float loseSpeed = 1.2f;
+
     void Start()
     {
-        
+        manager = GameManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.localScale = new(manager.GetComponent<GameManager>().Warmth*.003f, manager.GetComponent<GameManager>().Warmth*.003f, 0f);
+        fireIntensity -= 2.5f * (Time.deltaTime * loseSpeed);
+        fireIntensity = Mathf.Clamp(fireIntensity, 0, 100);
+        transform.localScale = new(fireIntensity * .003f, fireIntensity * .003f, 0f);
     }
+
+    private void OnMouseDown()
+    {
+        if(manager.Wood)
+        {
+            fireIntensity += 15;
+            manager.Wood = false;
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        if(!manager.Wood || !manager.Stone)
+            manager.ChangeCursor(manager.fireCursor);
+    }
+
     private void OnMouseOver()
     {
-
-        var managerscript = manager.GetComponent<GameManager>();
-        managerscript.ChangeCursor(warmhands);
-        managerscript.Warmth += 6.5f * (Time.deltaTime * managerscript.loseSpeed);
+        manager.Warmth += 6.5f * (Time.deltaTime * manager.loseSpeed);
     }
     private void OnMouseExit()
     {
-        var managerscript = manager.GetComponent<GameManager>();
-        managerscript.ChangeCursor(emptyhands);
+        if (!manager.Wood || !manager.Stone)
+            manager.ChangeCursor(manager.defaultCursor);
     }
 }
