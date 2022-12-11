@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Warmth")]
     public float Warmth = 100;
-    [SerializeField] private float loseSpeed = 1.5f;
+    [SerializeField] public float loseSpeed = 10f;
     [SerializeField] private Slider warmthMeter;
 
     [Header("Time")]
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Warmth -= 0.5f * (Time.deltaTime * loseSpeed);
+        Warmth -= 2.5f * (Time.deltaTime * loseSpeed);
         Warmth = Mathf.Clamp(Warmth, 0, 100);
         warmthMeter.value = Warmth;
     }
