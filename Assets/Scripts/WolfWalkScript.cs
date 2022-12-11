@@ -14,7 +14,16 @@ public class WolfWalkScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new(transform.position.x + spd * Time.deltaTime,-.78f, 0);
+        var anim = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+        if (anim.IsTag("walk"))
+            transform.position = new(transform.position.x + spd * Time.deltaTime, -1.67f, 0);
+
+
+        if (anim.IsTag("hurt") && anim.normalizedTime >= 1)
+        {
+            GetComponent<Animator>().Play("NewWolfAnim");
+        }
+
         if (transform.position.x >= 14 || transform.position.x <= -14)
         {
             spd *= -1;

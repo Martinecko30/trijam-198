@@ -28,12 +28,13 @@ public class FireplaceWarmth : MonoBehaviour
         {
             fireIntensity += 15;
             manager.Wood = false;
+            manager.ChangeCursor(manager.fireCursor);
         }
     }
 
     private void OnMouseEnter()
     {
-        if(!manager.Wood || !manager.Stone)
+        if(!manager.Wood && !manager.Stone)
             manager.ChangeCursor(manager.fireCursor);
     }
 
@@ -43,7 +44,7 @@ public class FireplaceWarmth : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        if (!manager.Wood || !manager.Stone)
+        if (!manager.Wood && !manager.Stone)
             manager.ChangeCursor(manager.defaultCursor);
     }
 }

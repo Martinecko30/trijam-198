@@ -15,6 +15,7 @@ public class WoodPickup : MonoBehaviour
         if (!manager.Wood)
         {
             manager.Wood = true;
+            manager.Stone = false;
             manager.ChangeCursor(manager.woodCursor);
         }
         else
